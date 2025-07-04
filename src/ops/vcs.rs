@@ -6,7 +6,7 @@ use clap::Parser;
 use crate::CargoResult;
 
 #[derive(Parser, Debug)]
-pub struct VcsOpts {
+pub(crate) struct VcsOpts {
     /// Fix code even if a VCS was not detected
     #[arg(long)]
     pub allow_no_vcs: bool,
@@ -21,7 +21,7 @@ pub struct VcsOpts {
 }
 
 impl VcsOpts {
-    pub fn valid_vcs(&self) -> CargoResult<()> {
+    pub(crate) fn valid_vcs(&self) -> CargoResult<()> {
         if self.allow_no_vcs {
             return Ok(());
         }

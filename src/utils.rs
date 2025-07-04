@@ -2,7 +2,7 @@ use cargo_util_schemas::core::PackageIdSpec;
 
 use crate::CargoResult;
 
-pub fn format_package_id(package_id: &str) -> CargoResult<String> {
+pub(crate) fn format_package_id(package_id: &str) -> CargoResult<String> {
     let spec = PackageIdSpec::parse(package_id)?;
     let version = spec
         .version()

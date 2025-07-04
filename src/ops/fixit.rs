@@ -6,7 +6,7 @@ use std::{
     process::Stdio,
 };
 
-use cargo_fixit::{
+use crate::{
     format_package_id, shell, CargoResult, CheckFlags, CheckOutput, Message, Target, VcsOpts,
 };
 use cargo_util::paths;
@@ -16,7 +16,7 @@ use rustfix::{collect_suggestions, CodeFix};
 use tracing::{trace, warn};
 
 #[derive(Debug, Parser)]
-pub(crate) struct FixitArgs {
+pub struct FixitArgs {
     /// Run `clippy` instead of `check`
     #[arg(long)]
     clippy: bool,
@@ -29,7 +29,7 @@ pub(crate) struct FixitArgs {
 }
 
 impl FixitArgs {
-    pub(crate) fn exec(self) -> CargoResult<()> {
+    pub fn exec(self) -> CargoResult<()> {
         exec(self)
     }
 }
@@ -40,6 +40,7 @@ struct File {
 }
 
 #[tracing::instrument(skip_all)]
+#[allow(clippy::print_stderr)]
 fn exec(args: FixitArgs) -> CargoResult<()> {
     args.vcs_opts.valid_vcs()?;
 

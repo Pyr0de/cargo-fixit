@@ -1,7 +1,7 @@
 use clap::Parser;
 
 #[derive(Debug, Parser)]
-pub struct CheckFlags {
+pub(crate) struct CheckFlags {
     /// Package(s) to fix
     #[arg(long, value_name = "SPEC", help_heading = "Package Selection")]
     package: Vec<String>,
@@ -81,7 +81,7 @@ pub struct CheckFlags {
 }
 
 impl CheckFlags {
-    pub fn to_flags(&self) -> Vec<String> {
+    pub(crate) fn to_flags(&self) -> Vec<String> {
         let mut out = Vec::new();
 
         for spec in self.package.clone() {

@@ -3,28 +3,28 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 #[serde(untagged)]
-pub enum CheckOutput {
+pub(crate) enum CheckOutput {
     Artifact(Artifact),
     Message(Message),
 }
 
 #[derive(Deserialize, Debug)]
 #[allow(dead_code)]
-pub struct Artifact {
+pub(crate) struct Artifact {
     pub package_id: String,
     pub target: Target,
     pub fresh: bool,
 }
 
 #[derive(Deserialize, Debug)]
-pub struct Message {
+pub(crate) struct Message {
     pub target: Target,
     pub message: Diagnostic,
     pub package_id: String,
 }
 
 #[derive(Deserialize, Hash, PartialEq, Clone, Eq, Debug)]
-pub struct Target {
+pub(crate) struct Target {
     kind: Vec<Kind>,
     crate_types: Vec<CrateType>,
     name: String,
@@ -37,7 +37,7 @@ pub struct Target {
 
 #[derive(Deserialize, Hash, PartialEq, Clone, Eq, Debug)]
 #[serde(rename_all(deserialize = "kebab-case"))]
-pub enum Kind {
+pub(crate) enum Kind {
     Bin,
     Example,
     Test,
@@ -55,7 +55,7 @@ pub enum Kind {
 
 #[derive(Deserialize, Hash, PartialEq, Clone, Eq, Debug)]
 #[serde(rename_all(deserialize = "kebab-case"))]
-pub enum CrateType {
+pub(crate) enum CrateType {
     Bin,
     Lib,
     Rlib,
